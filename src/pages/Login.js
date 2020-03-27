@@ -1,10 +1,36 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import moment from 'moment';
+import { useLocation, useHistory } from 'react-router-dom';
+import { parse } from 'querystring';
 import styled from 'styled-components';
 import { BLUE, WHITE } from '../typography/color';
 import { NORMAL_SIZE } from '../typography/font';
 import { getAuth } from '../lib/network';
 
+const useRedirect = () => {
+  const location = useLocation();
+  const history = useHistory();
+
+  const hash = parse(location.hash);
+  const search = parse(location.search);
+
+  useEffect(() => {
+    if (search['?error']) history.push('/login');
+
+    if (hash['#access_token']) {
+      localStorage.setItem('accessToken', hash['#access_token']);
+      localStorage.setItem(
+        'expires',
+        moment().add(hash.expires_in, 's').format(),
+      );
+      history.push('/playlist');
+    }
+  }, []);
+};
+
 const Login = () => {
+  useRedirect();
+
   return (
     <Contaienr>
       <LoginButton href={getAuth()}>Login</LoginButton>
@@ -14,7 +40,6 @@ const Login = () => {
 
 const Contaienr = styled.div`
   display: flex;
-  flex-direction: column;
   flex: 1;
   align-items: center;
   justify-content: center;
