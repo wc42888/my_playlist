@@ -1,4 +1,4 @@
 import { getAuth, isAuthorized } from './auth';
-import { getUserProfile } from './api';
+import { getUserProfile, getUserPlaylists } from './api';
 
-export { getAuth, isAuthorized, getUserProfile };
+export { getAuth, isAuthorized, getUserProfile, getUserPlaylists };

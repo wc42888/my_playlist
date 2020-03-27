@@ -23,3 +23,4 @@ client.interceptors.request.use((config) => {
 
 // GET REQUESTS
 export const getUserProfile = () => client.get('/me');
+export const getUserPlaylists = () => client.get('/me/playlists');
