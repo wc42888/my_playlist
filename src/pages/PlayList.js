@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-// import { connect } from 'react-redux';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { Redirect } from 'react-router-dom';
@@ -9,25 +8,29 @@ import { GREY } from '../typography/color';
 import { getUserProfile } from '../store/actions/userProfile';
 import { getUserPlaylists } from '../store/actions/playList';
 import Header from '../components/Header';
+import { getAllUserPlaylist } from '../selectors';
 
-// eslint-disable-next-line no-shadow
-const PlayList = () => {
+const useFetchInitialData = () => {
   const dispatch = useDispatch();
-  const { displayName, id } = useSelector((state) => state.userProfile);
 
   useEffect(() => {
     dispatch(getUserProfile());
     dispatch(getUserPlaylists());
   }, []);
+};
 
-  useEffect(() => {}, [id]);
+const PlayList = () => {
+  useFetchInitialData();
+
+  const { displayName } = useSelector((state) => state.userProfile);
+  const userPlaylist = useSelector(getAllUserPlaylist);
 
   const renderPlayList = () => (
     <>
       <Header userName={displayName} />
       <Container>
         <MyPlayListSection>
-          <MyPlayList />
+          <MyPlayList userPlaylist={userPlaylist} />
         </MyPlayListSection>
         <SearchMusicSection>search music</SearchMusicSection>
       </Container>
