@@ -22,7 +22,15 @@ const addPlayerListById = (action) => {
   return Map(newPlayList);
 };
 
-const updatePlaylistWithTracks = (state, action) => state;
+const updatePlaylistWithTracks = (state, action) => {
+  const {
+    payload: { playlistId, items },
+  } = action;
+
+  const tracksIds = items.map((item) => item.track.id);
+
+  return state.setIn([playlistId, 'tracks'], List(tracksIds));
+};
 
 const userPlaylistById = (state = byIdInitialState, action) => {
   switch (action.type) {
