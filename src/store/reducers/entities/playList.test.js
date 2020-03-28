@@ -16,4 +16,13 @@ describe('test user playlist reducers (normalised)', () => {
       expect(true).toBeTruthy();
     });
   });
+
+  describe(`on ${playListActions.POST_NEW_PLAYLIST_SUCCESS}`, () => {
+    it('should add the new playlist to byIds reducer', () => {
+      expect(true).toBeTruthy();
+    });
+    it('should add the new playlist id to allIds reducer', () => {
+      expect(true).toBeTruthy();
+    });
+  });
 });

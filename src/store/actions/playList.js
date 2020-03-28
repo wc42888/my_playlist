@@ -16,3 +16,21 @@ export const getUserPlaylists = () => async (dispatch) => {
     dispatch({ type: GET_USER_PLAY_LISTS_FAILURE });
   }
 };
+
+export const POST_NEW_PLAYLIST_REQUEST = 'POST_NEW_PLAYLIST_REQUEST';
+export const POST_NEW_PLAYLIST_SUCCESS = 'POST_NEW_PLAYLIST_SUCCESS';
+export const POST_NEW_PLAYLIST_FAILURE = 'POST_NEW_PLAYLIST_FAILURE';
+
+export const postNewPlaylist = (userId, playlistInfo) => async (dispatch) => {
+  try {
+    dispatch({ type: POST_NEW_PLAYLIST_REQUEST });
+    const {
+      data: { id, name },
+    } = await api.postNewPlaylist(userId, playlistInfo);
+
+    dispatch({ type: POST_NEW_PLAYLIST_SUCCESS, payload: { id, name } });
+  } catch (error) {
+    window.alert(error.message);
+    dispatch({ type: POST_NEW_PLAYLIST_FAILURE });
+  }
+};
