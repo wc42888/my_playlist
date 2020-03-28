@@ -22,12 +22,12 @@ const useFetchInitialData = () => {
 const PlayList = () => {
   useFetchInitialData();
 
-  const { displayName } = useSelector((state) => state.userProfile);
+  const userProfile = useSelector((state) => state.get('userProfile'));
   const userPlaylist = useSelector(getAllUserPlaylist);
 
   const renderPlayList = () => (
     <>
-      <Header userName={displayName} />
+      <Header userName={userProfile.get('displayName')} />
       <Container>
         <MyPlayListSection>
           <MyPlayList userPlaylist={userPlaylist} />
