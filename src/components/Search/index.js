@@ -1,20 +1,47 @@
-import React, { useState } from 'react';
+import React, { useState, useReducer } from 'react';
+import { fromJS, List } from 'immutable';
 import styled from 'styled-components';
 import SearchBar from './SearchBar';
 import TrackCard from './TrackCard';
 import { LIGHT_GREY } from '../../typography/color';
 
+const initialState = List([]);
+
+const searchResultReducer = (state = initialState, action = {}) => {
+  switch (action.type) {
+    case 'SET_SEARCH_RESULT':
+      return fromJS(action.payload.searchResult);
+    case 'RESET_SEARCH_RESULT':
+      return initialState;
+    case 'TOGGLE_SELECTED_TRACK': {
+      const {
+        payload: { id },
+      } = action;
+      const index = state.findIndex((track) => track.get('id') === id);
+
+      return state.update(index, (track) =>
+        track.set('selected', !track.get('selected')),
+      );
+    }
+    default:
+      return state;
+  }
+};
+
 const Search = ({ userPlaylist }) => {
-  const [searchResult, setSerchResult] = useState([]);
+  const [searchResult, dispatch] = useReducer(
+    searchResultReducer,
+    initialState,
+  );
   const [searchText, setText] = useState('');
 
-  const showSearchResult = () => searchResult.length;
+  const showSearchResult = () => searchResult.size;
 
   const renderTrackCards = () =>
     showSearchResult() ? (
       <TrackList>
         {searchResult.map((track) => (
-          <TrackCard key={track.id} track={track} userPlaylist={userPlaylist} />
+          <TrackCard key={track.get('id')} track={track} dispatch={dispatch} />
         ))}
       </TrackList>
     ) : null;
@@ -24,7 +51,7 @@ const Search = ({ userPlaylist }) => {
   return (
     <Container>
       <SearchBar
-        setSerchResult={setSerchResult}
+        dispatch={dispatch}
         searchText={searchText}
         setText={setText}
       />

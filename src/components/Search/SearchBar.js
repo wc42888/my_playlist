@@ -4,10 +4,10 @@ import { NORMAL_SIZE } from '../../typography/font';
 import { BLUE } from '../../typography/color';
 import { getSearchResult } from '../../lib/network';
 
-const SearchBar = ({ setText, searchText, setSerchResult }) => {
+const SearchBar = ({ setText, searchText, dispatch }) => {
   const onChange = (e) => {
     setText(e.target.value);
-    setSerchResult([]);
+    dispatch({ type: 'RESET_SEARCH_RESULT' });
   };
 
   const searchTracks = async () => {
@@ -24,7 +24,7 @@ const SearchBar = ({ setText, searchText, setSerchResult }) => {
       artists: artists.map((artist) => artist.name),
     }));
 
-    setSerchResult(searchResult);
+    dispatch({ type: 'SET_SEARCH_RESULT', payload: { searchResult } });
   };
 
   const onKeyDown = async (e) => {
