@@ -1,11 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
 import { LARGE_SIZE } from '../../typography/font';
 import { BLUE } from '../../typography/color';
+import { postNewPlaylist } from '../../store/actions/playList';
 
-const AddNewListButton = () => {
-  const onClick = (e) => {
-    console.log('haha');
+const AddNewListButton = ({ userId }) => {
+  const dispatch = useDispatch();
+
+  const onClick = () => {
+    const newPlaylistName = prompt('Enter new play list name');
+
+    if (newPlaylistName)
+      dispatch(postNewPlaylist(userId, { name: newPlaylistName }));
   };
 
   return <Container onClick={onClick}>+</Container>;
