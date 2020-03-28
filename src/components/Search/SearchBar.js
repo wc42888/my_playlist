@@ -1,25 +1,52 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { NORMAL_SIZE } from '../../typography/font';
 import { BLUE } from '../../typography/color';
+import { getSearchResult } from '../../lib/network';
 
-const SearchBar = () => {
-  const [text, setText] = useState('');
+const SearchBar = ({ setText, searchText, setSerchResult }) => {
+  const onChange = (e) => {
+    setText(e.target.value);
+    setSerchResult([]);
+  };
 
-  const onChange = (e) => setText(e.target.value);
+  const searchTracks = async () => {
+    if (!searchText) return;
+    const {
+      data: {
+        tracks: { items },
+      },
+    } = await getSearchResult(searchText);
+
+    const searchResult = items.map(({ id, name, artists }) => ({
+      id,
+      name,
+      artists: artists.map((artist) => artist.name),
+    }));
+
+    setSerchResult(searchResult);
+  };
+
+  const onKeyDown = async (e) => {
+    if (e.key === 'Enter') {
+      searchTracks();
+    }
+  };
 
   const renderInput = () => (
     <StyledInput
       type="text"
       placeholder="Search your track"
-      value={text}
+      value={searchText}
       onChange={onChange}
+      onKeyDown={onKeyDown}
     />
   );
 
-  const renderActionButton = () => (
-    <ActionButton>{text ? 'clear' : 'search'}</ActionButton>
-  );
+  const clearText = () => setText('');
+
+  const renderActionButton = () =>
+    searchText ? <ActionButton onClick={clearText}>clear</ActionButton> : null;
 
   return (
     <Container>
