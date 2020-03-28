@@ -13,12 +13,12 @@ const PlaylistCard = ({ playlist }) => {
   const getAllTracksForPlaylistValue = useMemo(getAllTracksForPlaylist, []);
 
   useEffect(() => {
-    if (expand) dispatch(getTracksForPlaylist(playlist.id));
+    if (expand) dispatch(getTracksForPlaylist(playlist.get('id')));
   }, [expand]);
 
   const tracks =
     useSelector((state) =>
-      getAllTracksForPlaylistValue(state, playlist.tracks || []),
+      getAllTracksForPlaylistValue(state, playlist.get('tracks') || []),
     ) || [];
 
   const renderTracks = () =>
@@ -36,7 +36,7 @@ const PlaylistCard = ({ playlist }) => {
     <PlaylistInfo>
       <InfoSection />
       <InfoSection>{playlist.get('name')}</InfoSection>
-      <InfoSection>{renderIcon()}</InfoSection>
+      <IconSection>{renderIcon()}</IconSection>
     </PlaylistInfo>
   );
 
