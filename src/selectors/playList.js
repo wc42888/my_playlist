@@ -8,5 +8,5 @@ const getAllUserplaylistAllIds = (state) =>
 export const getAllUserPlaylist = createSelector(
   [getAllUserPlaylistById, getAllUserplaylistAllIds],
   (userPlaylistById, playlistIds) =>
-    playlistIds.map((id) => userPlaylistById[id]),
+    playlistIds.map((id) => userPlaylistById.get(id)),
 );
