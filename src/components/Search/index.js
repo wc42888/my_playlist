@@ -3,6 +3,7 @@ import { fromJS, List } from 'immutable';
 import styled from 'styled-components';
 import SearchBar from './SearchBar';
 import TrackCard from './TrackCard';
+import MenuButton from './MenuButton';
 import { LIGHT_GREY } from '../../typography/color';
 
 const initialState = List([]);
@@ -37,9 +38,19 @@ const Search = ({ userPlaylist }) => {
 
   const showSearchResult = () => searchResult.size;
 
+  const selectedTracks = searchResult.filter((track) => track.get('selected'));
+
+  const renderMenuButton = () =>
+    selectedTracks.size ? (
+      <MenuButtonContainer>
+        <MenuButton />
+      </MenuButtonContainer>
+    ) : null;
+
   const renderTrackCards = () =>
     showSearchResult() ? (
       <TrackList>
+        {renderMenuButton()}
         {searchResult.map((track) => (
           <TrackCard key={track.get('id')} track={track} dispatch={dispatch} />
         ))}
@@ -70,6 +81,9 @@ const Container = styled.div`
 `;
 
 const TrackList = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: relative;
   width: 100%;
   overflow: scroll;
 `;
@@ -78,6 +92,13 @@ const Hr = styled.div`
   border-top: 1pt solid ${LIGHT_GREY};
   width: 100%;
   margin-top: 5pt;
+`;
+
+const MenuButtonContainer = styled.div`
+  align-self: flex-end;
+  position: sticky;
+  top: 0;
+  width: auto;
 `;
 
 export default Search;
