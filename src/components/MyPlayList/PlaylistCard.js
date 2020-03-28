@@ -22,21 +22,20 @@ const PlaylistCard = ({ playlist }) => {
     ) || [];
 
   const renderTracks = () =>
-    expand &&
-    tracks.size && (
+    expand && tracks.size ? (
       <TrackSection>
         {tracks.map((track, index) => (
           <Track key={track.id}>{`${index + 1}: ${track.name}`}</Track>
         ))}
       </TrackSection>
-    );
+    ) : null;
 
   const renderIcon = () => (expand ? '-' : '+');
 
   const renderPlaylistInfo = () => (
     <PlaylistInfo>
       <InfoSection />
-      <InfoSection>{playlist.name}</InfoSection>
+      <InfoSection>{playlist.get('name')}</InfoSection>
       <InfoSection>{renderIcon()}</InfoSection>
     </PlaylistInfo>
   );
@@ -59,6 +58,7 @@ const Container = styled.div`
   font: ${NORMAL_SIZE};
   min-height: ${LARGE_SIZE};
   border-radius: 5pt;
+  margin-top: 3pt;
 `;
 
 const PlaylistInfo = styled.div`

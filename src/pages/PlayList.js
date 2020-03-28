@@ -30,7 +30,10 @@ const PlayList = () => {
       <Header userName={userProfile.get('displayName')} />
       <Container>
         <MyPlayListSection>
-          <MyPlayList userPlaylist={userPlaylist} />
+          <MyPlayList
+            userPlaylist={userPlaylist}
+            userId={userProfile.get('id')}
+          />
         </MyPlayListSection>
         <SearchMusicSection>search music</SearchMusicSection>
       </Container>

@@ -4,17 +4,19 @@ import styled from 'styled-components';
 import PlaylistCard from './PlaylistCard';
 import AddNewListButton from './AddNewListButton';
 
-const MyPlayList = ({ userPlaylist = List([]) }) => {
+const MyPlayList = ({ userPlaylist = List([]), userId = '' }) => {
   const renderAddNewList = () => (
     <ButtonSection>
-      <AddNewListButton />
+      <AddNewListButton userId={userId} />
     </ButtonSection>
   );
 
   const renderPlaylists = () =>
     userPlaylist.size && (
       <PlaylistSection>
-        <PlaylistCard playlist={userPlaylist.get(0)} />
+        {userPlaylist.map((playlist) => (
+          <PlaylistCard key={playlist.get('id')} playlist={playlist} />
+        ))}
       </PlaylistSection>
     );
 
