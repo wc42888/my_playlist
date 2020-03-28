@@ -55,7 +55,7 @@ const Container = styled.div`
   justify-content: space-between;
   border: 1px solid ${GREY};
   width: 100%;
-  font: ${NORMAL_SIZE};
+  font-size: ${NORMAL_SIZE};
   min-height: ${LARGE_SIZE};
   border-radius: 5pt;
   margin-top: 3pt;
