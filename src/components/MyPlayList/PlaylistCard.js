@@ -72,6 +72,8 @@ const PlaylistInfo = styled.div`
 const InfoSection = styled.div`
   flex: 1;
   text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const IconSection = styled(InfoSection)`
