@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { Redirect } from 'react-router-dom';
 import { isAuthorized } from '../lib/network';
-import { MyPlayList } from '../components';
+import { MyPlayList, Search } from '../components';
 import { GREY } from '../typography/color';
 import { getUserProfile } from '../store/actions/userProfile';
 import { getUserPlaylists } from '../store/actions/playList';
@@ -25,17 +25,24 @@ const PlayList = () => {
   const userProfile = useSelector((state) => state.get('userProfile'));
   const userPlaylist = useSelector(getAllUserPlaylist);
 
+  const renderPlaylistSection = () => (
+    <MyPlayListSection>
+      <MyPlayList userPlaylist={userPlaylist} userId={userProfile.get('id')} />
+    </MyPlayListSection>
+  );
+
+  const renderSearchTrackSection = () => (
+    <SearchMusicSection>
+      <Search userPlaylist={userPlaylist} />
+    </SearchMusicSection>
+  );
+
   const renderPlayList = () => (
     <>
       <Header userName={userProfile.get('displayName')} />
       <Container>
-        <MyPlayListSection>
-          <MyPlayList
-            userPlaylist={userPlaylist}
-            userId={userProfile.get('id')}
-          />
-        </MyPlayListSection>
-        <SearchMusicSection>search music</SearchMusicSection>
+        {renderPlaylistSection()}
+        {renderSearchTrackSection()}
       </Container>
     </>
   );
