@@ -26,3 +26,7 @@ export const getUserProfile = () => client.get('/me');
 export const getUserPlaylists = () => client.get('/me/playlists');
 export const getTracksForPlaylist = (id) =>
   client.get(`/playlists/${id}/tracks`);
+
+// POST REQUESTS
+export const postNewPlaylist = (userId, playlistInfo) =>
+  client.post(`users/${userId}/playlists`, playlistInfo);
