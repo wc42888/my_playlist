@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { LARGE_SIZE } from '../../typography/font';
-import { BLUE } from '../../typography/color';
+import { BLUE, WHITE } from '../../typography/color';
 import { postNewPlaylist } from '../../store/actions/playList';
 
 const AddNewListButton = ({ userId }) => {
@@ -28,6 +28,7 @@ const Container = styled.button`
   border-radius: ${LARGE_SIZE};
   outline: none;
   background-color: ${BLUE};
+  color: ${WHITE};
 `;
 
 export default AddNewListButton;

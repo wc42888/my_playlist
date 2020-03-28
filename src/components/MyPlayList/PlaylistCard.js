@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { NORMAL_SIZE, LARGE_SIZE } from '../../typography/font';
-import { GREY } from '../../typography/color';
+import { GREY, BLUE } from '../../typography/color';
 import { getTracksForPlaylist } from '../../store/actions/tracks';
 import { getAllTracksForPlaylist } from '../../selectors';
 
@@ -72,6 +72,10 @@ const PlaylistInfo = styled.div`
 const InfoSection = styled.div`
   flex: 1;
   text-align: center;
+`;
+
+const IconSection = styled(InfoSection)`
+  color: ${BLUE};
 `;
 
 const TrackSection = styled.div`
