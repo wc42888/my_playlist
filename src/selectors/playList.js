@@ -1,7 +1,9 @@
 import { createSelector } from 'reselect';
 
-const getAllUserPlaylistById = (state) => state.entities.playList.byId;
-const getAllUserplaylistAllIds = (state) => state.entities.playList.allIds;
+const getAllUserPlaylistById = (state) =>
+  state.getIn(['entities', 'playList', 'byId']);
+const getAllUserplaylistAllIds = (state) =>
+  state.getIn(['entities', 'playList', 'allIds']);
 
 export const getAllUserPlaylist = createSelector(
   [getAllUserPlaylistById, getAllUserplaylistAllIds],
