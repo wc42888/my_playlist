@@ -1,10 +1,11 @@
-import { getAuth, isAuthorized, getToken } from './auth';
+import { getAuth, isAuthorized, getToken, refreshAccessToken } from './auth';
 import {
   getUserProfile,
   getUserPlaylists,
   getTracksForPlaylist,
   getSearchResult,
   postNewTrackToPlaylist,
+  getNewToken,
 } from './api';
 
 export {
@@ -16,4 +17,6 @@ export {
   getSearchResult,
   postNewTrackToPlaylist,
   getToken,
+  refreshAccessToken,
+  getNewToken,
 };

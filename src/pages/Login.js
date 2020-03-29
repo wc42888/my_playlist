@@ -5,7 +5,7 @@ import { parse } from 'querystring';
 import styled from 'styled-components';
 import { BLUE, WHITE, GREY } from '../typography/color';
 import { NORMAL_SIZE } from '../typography/font';
-import { getAuth, getToken } from '../lib/network';
+import { getAuth, getToken, getNewToken, isAuthorized } from '../lib/network';
 
 const useRedirect = (setAuth) => {
   const location = useLocation();
@@ -51,8 +51,30 @@ const useRedirect = (setAuth) => {
   }, [search['?error']]);
 };
 
+const useAutoAuthenticate = (setAuth) => {
+  const history = useHistory();
+
+  useEffect(() => {
+    setAuth(true);
+
+    const getNewAccessToken = async () => {
+      try {
+        await getNewToken();
+        setAuth(false);
+        history.push('/playlist');
+      } catch (error) {
+        setAuth(false);
+      }
+    };
+
+    getNewAccessToken();
+  }, []);
+};
+
 const Login = () => {
   const [isAuthenticating, setAuth] = useState(false);
+
+  useAutoAuthenticate(setAuth);
 
   useRedirect(setAuth);
 

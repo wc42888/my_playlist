@@ -1,4 +1,5 @@
 import axios from 'axios';
+import moment from 'moment';
 import { ROOT_URL } from '../../config/api';
 import formatTracksToUri from './formatTracksToUri';
 import { isAuthorized, refreshAccessToken } from './auth';
@@ -7,13 +8,13 @@ const client = axios.create({
   baseURL: `${ROOT_URL}/v1`,
 });
 
-const gerNewToken = async () => {
+export const getNewToken = async () => {
   const {
     data: { access_token: accessToken, expires_in: expires },
   } = await refreshAccessToken();
 
   localStorage.setItem('accssToken', accessToken);
-  localStorage.setItem('expires', expires);
+  localStorage.setItem('expires', moment().add(expires, 's').toISOString());
   return accessToken;
 };
 
@@ -21,7 +22,7 @@ const configHeader = (config) => {
   let accessToken = localStorage.getItem('accessToken');
 
   if (!isAuthorized()) {
-    accessToken = gerNewToken();
+    accessToken = getNewToken();
   }
 
   return {
