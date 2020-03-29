@@ -25,7 +25,9 @@ const PlaylistCard = ({ playlist }) => {
     expand && tracks.size ? (
       <TrackSection>
         {tracks.map((track, index) => (
-          <Track key={track.id}>{`${index + 1}: ${track.name}`}</Track>
+          <Track key={`${track.id} ${index + 1}`}>{`${index + 1}: ${
+            track.name
+          }`}</Track>
         ))}
       </TrackSection>
     ) : null;
