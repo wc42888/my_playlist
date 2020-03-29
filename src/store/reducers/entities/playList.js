@@ -4,7 +4,10 @@ import {
   GET_USER_PLAY_LISTS_SUCCESS,
   POST_NEW_PLAYLIST_SUCCESS,
 } from '../../actions/playList';
-import { GET_TRACKS_FOR_PLAYLIST_SUCCESS } from '../../actions/tracks';
+import {
+  GET_TRACKS_FOR_PLAYLIST_SUCCESS,
+  POST_TRACKS_TO_PLAYLIST_SUCCESS,
+} from '../../actions/tracks';
 
 const byIdInitialState = Map({});
 
@@ -38,6 +41,16 @@ const updatePlaylistWithTracks = (state, action) => {
 const addNewPlaylist = (state, { payload: { id, name } }) =>
   state.set(id, Map({ id, name }));
 
+const addNewTracksToPlaylist = (state, { payload: { playlistId, tracks } }) => {
+  const tracksIds = tracks.map((track) => track.id);
+
+  return state.updateIn([playlistId, 'tracks'], (currentTrackIds) => {
+    const listOfTracksIds = List(tracksIds);
+    if (!currentTrackIds) return List(listOfTracksIds);
+    return currentTrackIds.concat(listOfTracksIds);
+  });
+};
+
 const userPlaylistById = (state = byIdInitialState, action) => {
   switch (action.type) {
     case GET_USER_PLAY_LISTS_SUCCESS:
@@ -46,6 +59,8 @@ const userPlaylistById = (state = byIdInitialState, action) => {
       return updatePlaylistWithTracks(state, action);
     case POST_NEW_PLAYLIST_SUCCESS:
       return addNewPlaylist(state, action);
+    case POST_TRACKS_TO_PLAYLIST_SUCCESS:
+      return addNewTracksToPlaylist(state, action);
     default:
       return state;
   }

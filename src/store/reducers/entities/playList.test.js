@@ -25,4 +25,10 @@ describe('test user playlist reducers (normalised)', () => {
       expect(true).toBeTruthy();
     });
   });
+
+  describe(`on ${tracksAction.POST_TRACKS_TO_PLAYLIST_SUCCESS}`, () => {
+    it('should updated the playlist with the added tracks', () => {
+      expect(true).toBeTruthy();
+    });
+  });
 });
