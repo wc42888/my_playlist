@@ -47,7 +47,6 @@ export const postTracksToPlaylist = (playlistId, tracks) => async (
       },
     });
   } catch (error) {
-    console.log('error', error.message);
     dispatch({ type: POST_TRACKS_TO_PLAYLIST_FAILURE });
   }
 };
