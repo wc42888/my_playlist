@@ -4,6 +4,7 @@ import {
   getUserPlaylists,
   getTracksForPlaylist,
   getSearchResult,
+  postNewTrackToPlaylist,
 } from './api';
 
 export {
@@ -13,4 +14,5 @@ export {
   getUserPlaylists,
   getTracksForPlaylist,
   getSearchResult,
+  postNewTrackToPlaylist,
 };
