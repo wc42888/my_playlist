@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { ROOT_URL } from '../../config/api';
+import formatTracksToUri from './formatTracksToUri';
 
 const client = axios.create({
   baseURL: `${ROOT_URL}/v1`,
@@ -32,3 +33,8 @@ export const getSearchResult = (keyword) =>
 // POST REQUESTS
 export const postNewPlaylist = (userId, playlistInfo) =>
   client.post(`users/${userId}/playlists`, playlistInfo);
+
+export const postNewTrackToPlaylist = (playlistId, tracks) =>
+  client.post(`/playlists/${playlistId}/tracks`, {
+    uris: formatTracksToUri(tracks),
+  });
