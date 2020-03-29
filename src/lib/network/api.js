@@ -13,16 +13,16 @@ export const getNewToken = async () => {
     data: { access_token: accessToken, expires_in: expires },
   } = await refreshAccessToken();
 
-  localStorage.setItem('accssToken', accessToken);
-  localStorage.setItem('expires', moment().add(expires, 's').toISOString());
+  localStorage.setItem('accessToken', accessToken);
+  localStorage.setItem('expires', moment().add(expires, 's').format());
   return accessToken;
 };
 
-const configHeader = (config) => {
+const configHeader = async (config) => {
   let accessToken = localStorage.getItem('accessToken');
 
   if (!isAuthorized()) {
-    accessToken = getNewToken();
+    accessToken = await getNewToken();
   }
 
   return {

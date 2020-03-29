@@ -27,10 +27,7 @@ const useRedirect = (setAuth) => {
           } = await getToken(code);
 
           localStorage.setItem('accessToken', accessToken);
-          localStorage.setItem(
-            'expires',
-            moment().add(expires, 's').toISOString(),
-          );
+          localStorage.setItem('expires', moment().add(expires, 's').format());
           localStorage.setItem('refreshToken', refreshToken);
 
           history.push('/playlist');
