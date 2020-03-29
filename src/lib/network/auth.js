@@ -1,5 +1,5 @@
 import moment from 'moment';
-import Axios from 'axios';
+import axios from 'axios';
 import { stringify } from 'querystring';
 import {
   CLIENT_ID,
@@ -18,20 +18,31 @@ export const tokenValid = (expires) => moment().isBefore(moment(expires));
 
 const getBasic64 = () => btoa(`${CLIENT_ID}:${CLIENT_SECRET}`);
 
+const authClient = axios.create({
+  baseURL: `${ROOT_AUTH_URL}/api`,
+  headers: {
+    Authorization: `Basic ${getBasic64()}`,
+    'Content-Type': 'application/x-www-form-urlencoded',
+  },
+});
+
 export const getToken = (code) =>
-  Axios.post(
-    `${ROOT_AUTH_URL}/api/token`,
+  authClient.post(
+    '/token',
     stringify({
       grant_type: 'authorization_code',
       code,
       redirect_uri: REDIRECT_URI,
     }),
-    {
-      headers: {
-        Authorization: `Basic ${getBasic64()}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-    },
+  );
+
+export const refreshAccessToken = () =>
+  authClient.post(
+    '/token',
+    stringify({
+      grant_type: 'refresh_token',
+      refresh_token: localStorage.getItem('refreshToken'),
+    }),
   );
 
 export const isAuthorized = () => {
