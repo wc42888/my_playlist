@@ -1,39 +1,66 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import { useLocation, useHistory } from 'react-router-dom';
 import { parse } from 'querystring';
 import styled from 'styled-components';
 import { BLUE, WHITE } from '../typography/color';
 import { NORMAL_SIZE } from '../typography/font';
-import { getAuth } from '../lib/network';
+import { getAuth, getToken } from '../lib/network';
 
-const useRedirect = () => {
+const useRedirect = (setAuth) => {
   const location = useLocation();
   const history = useHistory();
 
-  const hash = parse(location.hash);
   const search = parse(location.search);
 
   useEffect(() => {
-    if (search['?error']) history.push('/login');
+    if (search['?code']) {
+      const fetchToken = async (code) => {
+        try {
+          setAuth(true);
+          const {
+            data: {
+              access_token: accessToken,
+              expires_in: expires,
+              refresh_token: refreshToken,
+            },
+          } = await getToken(code);
 
-    if (hash['#access_token']) {
-      localStorage.setItem('accessToken', hash['#access_token']);
-      localStorage.setItem(
-        'expires',
-        moment().add(hash.expires_in, 's').format(),
-      );
-      history.push('/playlist');
+          localStorage.setItem('accessToken', accessToken);
+          localStorage.setItem(
+            'expires',
+            moment().add(expires, 's').toISOString(),
+          );
+          localStorage.setItem('refreshToken', refreshToken);
+
+          history.push('/playlist');
+        } catch (error) {
+          history.push('/login');
+        }
+      };
+      fetchToken(search['?code']);
     }
-  }, []);
+
+    return () => {
+      setAuth(false);
+    };
+  }, [search['?code']]);
+
+  useEffect(() => {
+    if (search['?error']) history.push('/login');
+  }, [search['?error']]);
 };
 
 const Login = () => {
-  useRedirect();
+  const [isAuthenticating, setAuth] = useState(false);
+
+  useRedirect(setAuth);
+
+  const renderText = () => (isAuthenticating ? 'Logging in' : 'Login');
 
   return (
     <Contaienr>
-      <LoginButton href={getAuth()}>Login</LoginButton>
+      <LoginButton href={getAuth()}>{renderText()}</LoginButton>
     </Contaienr>
   );
 };
