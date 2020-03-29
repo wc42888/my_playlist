@@ -12,13 +12,13 @@ const MyPlayList = ({ userPlaylist = List([]), userId = '' }) => {
   );
 
   const renderPlaylists = () =>
-    userPlaylist.size && (
+    userPlaylist.size ? (
       <PlaylistSection>
         {userPlaylist.map((playlist) => (
           <PlaylistCard key={playlist.get('id')} playlist={playlist} />
         ))}
       </PlaylistSection>
-    );
+    ) : null;
 
   const renderHeader = () => <div>My playlists</div>;
 
