@@ -24,6 +24,12 @@ const searchResultReducer = (state = initialState, action = {}) => {
         track.set('selected', !track.get('selected')),
       );
     }
+    case 'CLEAR_SELECTED': {
+      return state.map((track) => {
+        if (track.get('selected')) return track.set('selected', false);
+        return track;
+      });
+    }
     default:
       return state;
   }
@@ -40,10 +46,16 @@ const Search = ({ userPlaylist }) => {
 
   const selectedTracks = searchResult.filter((track) => track.get('selected'));
 
+  const clearSelected = () => dispatch({ type: 'CLEAR_SELECTED' });
+
   const renderMenuButton = () =>
     selectedTracks.size ? (
       <MenuButtonContainer>
-        <MenuButton />
+        <MenuButton
+          selectedTracks={selectedTracks}
+          userPlaylist={userPlaylist}
+          clearSelected={clearSelected}
+        />
       </MenuButtonContainer>
     ) : null;
 
@@ -85,7 +97,8 @@ const TrackList = styled.div`
   flex-direction: column;
   position: relative;
   width: 100%;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
 `;
 
 const Hr = styled.div`
@@ -95,10 +108,10 @@ const Hr = styled.div`
 `;
 
 const MenuButtonContainer = styled.div`
+  margin-right: 100pt;
   align-self: flex-end;
   position: sticky;
-  top: 0;
-  width: auto;
+  top: 5pt;
 `;
 
 export default Search;
