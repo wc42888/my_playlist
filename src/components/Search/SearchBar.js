@@ -43,7 +43,10 @@ const SearchBar = ({ setText, searchText, dispatch }) => {
     />
   );
 
-  const clearText = () => setText('');
+  const clearText = () => {
+    setText('');
+    dispatch({ type: 'RESET_SEARCH_RESULT' });
+  };
 
   const renderActionButton = () =>
     searchText ? <ActionButton onClick={clearText}>clear</ActionButton> : null;
