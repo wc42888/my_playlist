@@ -7,14 +7,16 @@ import { BLUE, WHITE, GREY } from '../typography/color';
 import { NORMAL_SIZE } from '../typography/font';
 import { getAuth, getToken, getNewToken } from '../lib/network';
 
-const useRedirect = (setAuth) => {
-  const location = useLocation();
-  const history = useHistory();
-
+const useRedirect = (setAuth, location, history) => {
   const search = parse(location.search);
 
+  const callbackCode = search['?code'];
+  const callbackError = search['?error'];
+
   useEffect(() => {
-    if (search['?code']) {
+    if (callbackError) history.push('/login');
+
+    if (callbackCode) {
       const fetchToken = async (code) => {
         try {
           setAuth(true);
@@ -41,16 +43,10 @@ const useRedirect = (setAuth) => {
     return () => {
       setAuth(false);
     };
-  }, [search['?code']]);
-
-  useEffect(() => {
-    if (search['?error']) history.push('/login');
-  }, [search['?error']]);
+  });
 };
 
-const useAutoAuthenticate = (setAuth) => {
-  const history = useHistory();
-
+const useAutoAuthenticate = (setAuth, history) => {
   useEffect(() => {
     setAuth(true);
 
@@ -70,10 +66,12 @@ const useAutoAuthenticate = (setAuth) => {
 
 const Login = () => {
   const [isAuthenticating, setAuth] = useState(false);
+  const history = useHistory();
+  const location = useLocation();
 
-  useAutoAuthenticate(setAuth);
+  useAutoAuthenticate(setAuth, history);
 
-  useRedirect(setAuth);
+  useRedirect(setAuth, location, history);
 
   const renderText = () => (isAuthenticating ? 'Authenticating' : 'Login');
 

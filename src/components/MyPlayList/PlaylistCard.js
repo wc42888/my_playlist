@@ -14,7 +14,7 @@ const PlaylistCard = ({ playlist }) => {
 
   useEffect(() => {
     if (expand) dispatch(getTracksForPlaylist(playlist.get('id')));
-  }, [expand]);
+  });
 
   const tracks =
     useSelector((state) =>
