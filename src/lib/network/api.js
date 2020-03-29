@@ -1,13 +1,29 @@
 import axios from 'axios';
 import { ROOT_URL } from '../../config/api';
 import formatTracksToUri from './formatTracksToUri';
+import { isAuthorized, refreshAccessToken } from './auth';
 
 const client = axios.create({
   baseURL: `${ROOT_URL}/v1`,
 });
 
+const gerNewToken = async () => {
+  const {
+    data: { access_token: accessToken, expires_in: expires },
+  } = await refreshAccessToken();
+
+  localStorage.setItem('accssToken', accessToken);
+  localStorage.setItem('expires', expires);
+  return accessToken;
+};
+
 const configHeader = (config) => {
-  const accessToken = localStorage.getItem('accessToken');
+  let accessToken = localStorage.getItem('accessToken');
+
+  if (!isAuthorized()) {
+    accessToken = gerNewToken();
+  }
+
   return {
     ...config,
     headers: {
@@ -18,8 +34,13 @@ const configHeader = (config) => {
 };
 
 client.interceptors.request.use((config) => {
-  const newConfig = configHeader(config);
-  return newConfig;
+  try {
+    const newConfig = configHeader(config);
+    return newConfig;
+  } catch (error) {
+    window.location.href = '/login';
+    return false;
+  }
 });
 
 // GET REQUESTS
