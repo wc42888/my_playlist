@@ -5,7 +5,7 @@ import { parse } from 'querystring';
 import styled from 'styled-components';
 import { BLUE, WHITE, GREY } from '../typography/color';
 import { NORMAL_SIZE } from '../typography/font';
-import { getAuth, getToken, getNewToken, isAuthorized } from '../lib/network';
+import { getAuth, getToken, getNewToken } from '../lib/network';
 
 const useRedirect = (setAuth) => {
   const location = useLocation();

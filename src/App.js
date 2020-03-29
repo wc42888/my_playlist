@@ -1,7 +1,12 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { Login, PlayList, Redirect } from './pages';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from 'react-router-dom';
+import { Login, PlayList } from './pages';
 import store from './store';
 
 function App() {
@@ -15,9 +20,7 @@ function App() {
           <Route path="/login">
             <Login />
           </Route>
-          <Route path="*">
-            <Redirect />
-          </Route>
+          <Redirect from="*" to="/login" />
         </Switch>
       </Router>
     </Provider>
