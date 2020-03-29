@@ -3,7 +3,7 @@ import moment from 'moment';
 import { useLocation, useHistory } from 'react-router-dom';
 import { parse } from 'querystring';
 import styled from 'styled-components';
-import { BLUE, WHITE } from '../typography/color';
+import { BLUE, WHITE, GREY } from '../typography/color';
 import { NORMAL_SIZE } from '../typography/font';
 import { getAuth, getToken } from '../lib/network';
 
@@ -56,11 +56,13 @@ const Login = () => {
 
   useRedirect(setAuth);
 
-  const renderText = () => (isAuthenticating ? 'Logging in' : 'Login');
+  const renderText = () => (isAuthenticating ? 'Authenticating' : 'Login');
 
   return (
     <Contaienr>
-      <LoginButton href={getAuth()}>{renderText()}</LoginButton>
+      <LoginButton href={getAuth()} isAuthenticating={isAuthenticating}>
+        {renderText()}
+      </LoginButton>
     </Contaienr>
   );
 };
@@ -85,6 +87,9 @@ const LoginButton = styled.a`
   background-color: ${BLUE};
   color: ${WHITE};
   font-size: ${NORMAL_SIZE};
+  pointer-events: ${(props) => (props.isAuthenticating ? 'none' : 'auto')};
+  background-color: ${(props) =>
+    props.isAuthenticating ? `${GREY}` : `${BLUE}`};
 `;
 
 export default Login;
