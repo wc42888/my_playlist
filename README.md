@@ -1,8 +1,74 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# My spotify list
 
-## Available Scripts
+My spotify list is for spotify users to
 
-In the project directory, you can run:
+1. view their saved songs on the current play lists
+2. create new play lists
+3. search their favourite songs
+4. add new songs to their play list
+
+## Page flow diagram
+
+<img src="./pageFlow.png?raw=true" alt="Your image title" width="100%"/>
+
+## Screenshots and brief intro
+
+- simple login page which features auto-authenication when the user is signed in before
+
+<img src="./screenshots/login.png" alt="Your image title" width="50%" />
+
+- playlist page shows the user's current playlists, search bar
+
+<img src="./screenshots/playlist.png" alt="Your image title" width="50%"/>
+
+- you can expand/collapse a playlist
+
+<img src="./screenshots/playlist.png" alt="Your image title" width="50%"/>
+
+- click the '+' button on the left section to create a new play list
+
+<img src="./screenshots/createNewList.png" alt="Your image title" width="50%"/>
+
+- new play list is created on your spotify account
+
+<img src="./screenshots/newList.png" alt="Your image title" width="50%"/>
+
+- type keywords to search a song and press ENTER to search
+
+<img src="./screenshots/search.png" alt="Your image title" width="50%"/>
+
+- select one or multiple songs to add to the your play list, select the playlist on the dropdown
+
+<img src="./screenshots/select.png" alt="Your image title" width="50%"/>
+
+- the selected songs are added to the chosen playlist
+
+<img src="./screenshots/add.png" alt="Your image title" width="50%"/>
+
+## Tech Stack
+
+- React [https://reactjs.org/](https://reactjs.org/)
+- React-router [React-route](https://reacttraining.com/react-router/)
+- Jest [jest](https://jestjs.io/)
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js
+
+### Before start
+
+- create environment files for different environments (development, production).
+- to run this demo, you will need .env.development.local file in the root directory (attached separately).
+
+### How to run
+
+In the project directory, first run
+
+`npm install`
+
+and then you can run:
 
 ### `yarn start`
 
@@ -14,55 +80,15 @@ You will also see any lint errors in the console.
 
 ### `yarn test`
 
-Launches the test runner in the interactive watch mode.<br />
+Launches the test runner in the interactive watch mode.
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `yarn build`
+### what can be improved
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- use [typscript](https://www.typescriptlang.org/) or at least [prop-types](https://www.npmjs.com/package/prop-types) for type checking
+- complete unit tests (due to the time limits, all the important unit tests are dummied, and all the component uni tests are missing)
+- implment end to end tests
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+## Authors
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+- **Chao Wang**
