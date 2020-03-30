@@ -1,9 +1,14 @@
 import * as authModule from './auth';
-import { CLIENT_ID, REDIRECT_URI, ROOT_URL } from '../../config/api';
+import {
+  CLIENT_ID,
+  REDIRECT_URI,
+  ROOT_AUTH_URL,
+  SCOPE,
+} from '../../config/api';
 
 describe('test getAuth function', () => {
   it('should match the expect path', () => {
-    const expectedPath = `${ROOT_URL}/authorize?client_id=${CLIENT_ID}&response_type=token&redirect_uri=${REDIRECT_URI}`;
+    const expectedPath = `${ROOT_AUTH_URL}/authorize?client_id=${CLIENT_ID}&response_type=code&scope=${SCOPE}&redirect_uri=${REDIRECT_URI}`;
     expect(authModule.getAuth()).toEqual(expectedPath);
   });
 });
