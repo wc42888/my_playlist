@@ -57,16 +57,16 @@ My spotify list is for spotify users to
 
 - Node.js
 
-### Before start
+### **Before start**
 
-- create environment files for different environments (development, production).
-- to run this demo, you will need .env.development.local file in the root directory (attached separately).
+- **create environment files for different environments (development, production).**
+- **to run this demo, you will need .env.development.local file in the root directory (attached separately).**
 
 ### How to run
 
 In the project directory, first run
 
-`npm install`
+`yarn install` or `npm install`
 
 and then you can run:
 
