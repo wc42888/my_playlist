@@ -23,7 +23,7 @@ const PlaylistCard = ({ playlist }) => {
 
   const renderTracks = () =>
     expand && tracks.size ? (
-      <TrackSection>
+      <TrackSection id="trackSection">
         {tracks.map((track, index) => (
           <Track key={`${track.id} ${index + 1}`}>{`${index + 1}: ${
             track.name
@@ -50,7 +50,7 @@ const PlaylistCard = ({ playlist }) => {
   );
 };
 
-const Container = styled.div`
+export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
