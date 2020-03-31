@@ -52,12 +52,13 @@ describe('test PlaylistCard component', () => {
     });
   });
 
+  const tracksSelectorResult = List([
+    { id: 'track1', name: 'track1' },
+    { id: 'track2', name: 'track2' },
+  ]);
+
   describe('test playlist with tracks', () => {
     beforeEach(() => {
-      const tracksSelectorResult = List([
-        { id: 'track1', name: 'track1' },
-        { id: 'track2', name: 'track2' },
-      ]);
       useSelector.mockImplementationOnce(() => tracksSelectorResult);
       useStateMock.mockImplementation(() => [true, setExpand]);
 
@@ -78,7 +79,9 @@ describe('test PlaylistCard component', () => {
     });
 
     it('should render track of the same size', () => {
-      expect(playlistCard.find('#trackSection')).toHaveLength(2);
+      expect(playlistCard.find('#trackSection')).toHaveLength(
+        tracksSelectorResult.size,
+      );
     });
   });
 });
