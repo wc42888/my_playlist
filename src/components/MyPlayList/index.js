@@ -6,21 +6,21 @@ import AddNewListButton from './AddNewListButton';
 
 const MyPlayList = ({ userPlaylist = List([]), userId = '' }) => {
   const renderAddNewList = () => (
-    <ButtonSection>
-      <AddNewListButton userId={userId} />
+    <ButtonSection id="buttonSection">
+      <AddNewListButton id="button" userId={userId} />
     </ButtonSection>
   );
 
   const renderPlaylists = () =>
     userPlaylist.size ? (
-      <PlaylistSection>
+      <PlaylistSection id="playlistSection">
         {userPlaylist.map((playlist) => (
           <PlaylistCard key={playlist.get('id')} playlist={playlist} />
         ))}
       </PlaylistSection>
     ) : null;
 
-  const renderHeader = () => <div>My playlists</div>;
+  const renderHeader = () => <div id="header">My playlists</div>;
 
   return (
     <Container>
