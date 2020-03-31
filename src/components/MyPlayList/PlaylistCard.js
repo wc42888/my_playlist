@@ -37,13 +37,13 @@ const PlaylistCard = ({ playlist }) => {
   const renderPlaylistInfo = () => (
     <PlaylistInfo>
       <InfoSection />
-      <InfoSection>{playlist.get('name')}</InfoSection>
+      <InfoSection id="playlistName">{playlist.get('name')}</InfoSection>
       <IconSection>{renderIcon()}</IconSection>
     </PlaylistInfo>
   );
 
   return (
-    <Container onClick={() => setExpand(!expand)}>
+    <Container id="cardContainer" onClick={() => setExpand(!expand)}>
       {renderPlaylistInfo()}
       {renderTracks()}
     </Container>
@@ -71,7 +71,7 @@ const PlaylistInfo = styled.div`
   align-items: center;
 `;
 
-const InfoSection = styled.div`
+export const InfoSection = styled.div`
   flex: 1;
   text-align: center;
   overflow: hidden;
