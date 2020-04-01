@@ -13,7 +13,7 @@ const MenuButton = ({ selectedTracks, userPlaylist, clearSelected }) => {
   const dispatch = useDispatch();
 
   const renderNumOfSelected = () => (
-    <SelectedNum>{selectedTracks.size}</SelectedNum>
+    <SelectedNum id="selectedNum">{selectedTracks.size}</SelectedNum>
   );
 
   const dispatchToPlaylist = (playlistId) => {
@@ -31,7 +31,7 @@ const MenuButton = ({ selectedTracks, userPlaylist, clearSelected }) => {
 
   const renderOption = () =>
     showOption && (
-      <OptionSection>
+      <OptionSection id="optionSection">
         {userPlaylist.map((playlist) => (
           <PlaylistOption
             key={playlist.get('id')}
@@ -48,7 +48,11 @@ const MenuButton = ({ selectedTracks, userPlaylist, clearSelected }) => {
   const dismissOption = () => setShowOption(false);
 
   return (
-    <Container onClick={toggleOption} onMouseLeave={dismissOption}>
+    <Container
+      id="cardContainer"
+      onClick={toggleOption}
+      onMouseLeave={dismissOption}
+    >
       {'+'}
       {renderNumOfSelected()}
       {renderOption()}
