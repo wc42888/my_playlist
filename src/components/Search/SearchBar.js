@@ -27,7 +27,7 @@ const SearchBar = ({ setText, searchText, dispatch }) => {
     dispatch({ type: 'SET_SEARCH_RESULT', payload: { searchResult } });
   };
 
-  const onKeyDown = async (e) => {
+  const onKeyDown = (e) => {
     if (e.key === 'Enter') {
       searchTracks();
     }
@@ -35,6 +35,7 @@ const SearchBar = ({ setText, searchText, dispatch }) => {
 
   const renderInput = () => (
     <StyledInput
+      id="input"
       type="text"
       placeholder="Search your track"
       value={searchText}
@@ -49,7 +50,11 @@ const SearchBar = ({ setText, searchText, dispatch }) => {
   };
 
   const renderActionButton = () =>
-    searchText ? <ActionButton onClick={clearText}>clear</ActionButton> : null;
+    searchText ? (
+      <ActionButton id="actionButton" onClick={clearText}>
+        clear
+      </ActionButton>
+    ) : null;
 
   return (
     <Container>
