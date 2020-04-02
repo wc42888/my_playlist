@@ -4,7 +4,7 @@ import React, {
 } from 'react';
 import { List, fromJS } from 'immutable';
 import { shallow } from 'enzyme';
-import Search from './index';
+import Search, { searchResultReducer, initialState } from './index';
 
 describe('test Search component', () => {
   let search;
@@ -79,5 +79,17 @@ describe('test Search component', () => {
       const divider = search.find('#divider');
       expect(divider.exists()).toBeTruthy();
     });
+  });
+});
+
+describe('test, search result reducer', () => {
+  it('should return initial state when state prop is empty', () => {
+    const state = searchResultReducer(initialState);
+    expect(state).toBe(initialState);
+  });
+
+  it('should reset the state when on RESET_SEARCH_RESULT action', () => {
+    const state = searchResultReducer(null, { type: 'RESET_SEARCH_RESULT' });
+    expect(state).toBe(initialState);
   });
 });

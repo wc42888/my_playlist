@@ -6,9 +6,9 @@ import TrackCard from './TrackCard';
 import MenuButton from './MenuButton';
 import { LIGHT_GREY } from '../../typography/color';
 
-const initialState = List([]);
+export const initialState = List([]);
 
-const searchResultReducer = (state = initialState, action = {}) => {
+export const searchResultReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case 'SET_SEARCH_RESULT':
       return fromJS(action.payload.searchResult);
