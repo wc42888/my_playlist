@@ -12,4 +12,5 @@ jest.mock('react', () => ({
   ...jest.requireActual('react'),
   useState: jest.fn(),
   useEffect: (f) => f(),
+  useReducer: jest.fn(),
 }));
