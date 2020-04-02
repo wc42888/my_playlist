@@ -52,6 +52,7 @@ const Search = ({ userPlaylist }) => {
     selectedTracks.size ? (
       <MenuButtonContainer>
         <MenuButton
+          id="menuButton"
           selectedTracks={selectedTracks}
           userPlaylist={userPlaylist}
           clearSelected={clearSelected}
@@ -61,19 +62,25 @@ const Search = ({ userPlaylist }) => {
 
   const renderTrackCards = () =>
     showSearchResult() ? (
-      <TrackList>
+      <TrackList id="trackList">
         {renderMenuButton()}
         {searchResult.map((track) => (
-          <TrackCard key={track.get('id')} track={track} dispatch={dispatch} />
+          <TrackCard
+            className="trackCard"
+            key={track.get('id')}
+            track={track}
+            dispatch={dispatch}
+          />
         ))}
       </TrackList>
     ) : null;
 
-  const renderDivider = () => (showSearchResult() ? <Hr /> : null);
+  const renderDivider = () => (showSearchResult() ? <Hr id="divider" /> : null);
 
   return (
     <Container>
       <SearchBar
+        id="searchBar"
         dispatch={dispatch}
         searchText={searchText}
         setText={setText}
