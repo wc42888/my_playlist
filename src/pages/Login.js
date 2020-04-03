@@ -7,7 +7,7 @@ import { BLUE, WHITE, GREY } from '../typography/color';
 import { NORMAL_SIZE } from '../typography/font';
 import { getAuth, getToken, getNewToken } from '../lib/network';
 
-const useRedirect = (setAuth, location, history) => {
+export const useRedirect = (setAuth, location, history) => {
   const search = parse(location.search);
 
   const callbackCode = search['?code'];
@@ -46,7 +46,7 @@ const useRedirect = (setAuth, location, history) => {
   });
 };
 
-const useAutoAuthenticate = (setAuth, history) => {
+export const useAutoAuthenticate = (setAuth, history) => {
   useEffect(() => {
     setAuth(true);
 
@@ -77,7 +77,11 @@ const Login = () => {
 
   return (
     <Contaienr>
-      <LoginButton href={getAuth()} isAuthenticating={isAuthenticating}>
+      <LoginButton
+        id="loginButton"
+        href={getAuth()}
+        isAuthenticating={isAuthenticating}
+      >
         {renderText()}
       </LoginButton>
     </Contaienr>
